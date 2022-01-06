@@ -24,7 +24,7 @@ let Y = 0
 let R = 0
 let RM = 0
 let LM = 0
-radio.setGroup(1)
+radio.setGroup(87)
 basic.showIcon(IconNames.Yes)
 basic.forever(function () {
     basic.clearScreen()
