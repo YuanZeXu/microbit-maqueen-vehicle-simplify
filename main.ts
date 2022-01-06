@@ -68,4 +68,18 @@ basic.forever(function () {
     serial.writeValue("G", G)
     serial.writeValue("Y", Y)
     serial.writeValue("B", B)
+    if (G == 1) {
+        basic.showNumber(maqueen.Ultrasonic(PingUnit.Centimeters))
+        basic.showString("CM")
+    }
+    if (B == 1) {
+        basic.showIcon(IconNames.Happy)
+        soundExpression.hello.playUntilDone()
+        basic.pause(200)
+        soundExpression.giggle.play()
+        for (let index = 0; index < 2; index++) {
+            basic.showIcon(IconNames.Heart)
+            basic.showIcon(IconNames.SmallHeart)
+        }
+    }
 })
