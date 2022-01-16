@@ -17,7 +17,19 @@ radio.onReceivedValue(function (name, value) {
     if (name == "B") {
         B = value
     }
+    if (name == "Z") {
+        Z = value
+    }
+    if (name == "LA") {
+        LA = value
+    }
+    if (name == "RB") {
+        RB = value
+    }
 })
+let RB = 0
+let LA = 0
+let Z = 0
 let B = 0
 let G = 0
 let Y = 0
@@ -49,7 +61,12 @@ basic.forever(function () {
     if (R == 1) {
         led.plot(2, 0)
         maqueen.servoRun(maqueen.Servos.S1, 0)
-    } else {
+    }
+    if (B == 1) {
+        led.plot(2, 4)
+        maqueen.servoRun(maqueen.Servos.S1, 180)
+    }
+    if (R == 0 && B == 0) {
         maqueen.servoRun(maqueen.Servos.S1, 90)
     }
     if (Y == 1) {
@@ -68,11 +85,14 @@ basic.forever(function () {
     serial.writeValue("G", G)
     serial.writeValue("Y", Y)
     serial.writeValue("B", B)
+    serial.writeValue("Z", Z)
+    serial.writeValue("LA", LA)
+    serial.writeValue("RB", RB)
     if (G == 1) {
         basic.showNumber(maqueen.Ultrasonic(PingUnit.Centimeters))
         basic.showString("CM")
     }
-    if (B == 1) {
+    if (LA == 1) {
         basic.showIcon(IconNames.Happy)
         soundExpression.hello.playUntilDone()
         basic.pause(200)
@@ -81,5 +101,27 @@ basic.forever(function () {
             basic.showIcon(IconNames.Heart)
             basic.showIcon(IconNames.SmallHeart)
         }
+    }
+    if (RB == 1) {
+        soundExpression.twinkle.play()
+        for (let loopX = 0; loopX <= 4; loopX++) {
+            for (let loopY = 0; loopY <= 4; loopY++) {
+                basic.pause(200)
+                led.plotBrightness(loopX, loopY, 255)
+            }
+        }
+    }
+    if (Z == 1) {
+        soundExpression.soaring.play()
+        basic.showArrow(ArrowNames.East)
+        basic.showArrow(ArrowNames.West)
+        basic.showArrow(ArrowNames.North)
+        basic.showArrow(ArrowNames.East)
+        basic.showArrow(ArrowNames.West)
+        basic.showArrow(ArrowNames.North)
+        basic.showIcon(IconNames.SmallSquare)
+        basic.showIcon(IconNames.Square)
+        basic.showIcon(IconNames.SmallSquare)
+        basic.showIcon(IconNames.Square)
     }
 })
